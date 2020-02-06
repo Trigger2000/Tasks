@@ -44,6 +44,7 @@ template <typename T>
 class Polygon 
 {
     vector<point<T>> vertexes;
+    
 public:
     void anticlockwise_sort();
     double count_area();
