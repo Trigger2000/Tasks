@@ -27,18 +27,17 @@ Polygon<T> find_points(const triangle<T>& tr1, const triangle<T>& tr2)
     Polygon<T> intersections;
     for (int i = 0; i < 3; i++)
     {
-        if (isbelong(tr1.array[i], tr2) == 1 && 
+        if (tr2.isbelong(tr1.array[i]) == 1 && 
             std::find(intersections.begin(), intersections.end(), tr1.array[i]) == intersections.end())
         {
             intersections.push_back(tr1.array[i]);
         }
-    }
-    
-    for (int i = 0; i < 3; i++)
-    {
-        if (isbelong(tr2.array[i], tr1) &&
+
+        if (tr1.isbelong(tr2.array[i]) &&
             std::find(intersections.begin(), intersections.end(), tr2.array[i]) == intersections.end())
+        {
             intersections.push_back(tr2.array[i]);
+        }
     }
     
     line<T> lines1[3] = {{tr1.array[0], tr1.array[1]}, {tr1.array[0], tr1.array[2]}, {tr1.array[1], tr1.array[2]}};
@@ -60,11 +59,11 @@ Polygon<T> find_points(const triangle<T>& tr1, const triangle<T>& tr2)
 }
 
 template <typename T>
-bool isbelong(const point<T>& p, const triangle<T>& tr)
+bool triangle<T>:: isbelong(const point<T>& p) const
 {
-    double dx1 = tr.array[1].x - tr.array[0].x, dx2 = tr.array[2].x - tr.array[0].x;
-    double dy1 = tr.array[1].y - tr.array[0].y, dy2 = tr.array[2].y - tr.array[0].y;
-    double dx = p.x - tr.array[0].x, dy = p.y - tr.array[0].y;
+    double dx1 = array[1].x - array[0].x, dx2 = array[2].x - array[0].x;
+    double dy1 = array[1].y - array[0].y, dy2 = array[2].y - array[0].y;
+    double dx = p.x - array[0].x, dy = p.y - array[0].y;
     double det = dx1*dy2 - dy1*dx2, det1 = dx*dy2 - dy*dx2, det2 = dx1*dy - dy1*dx;
     double a = det1 / det, b = det2 / det, c = (det - det1 - det2) / det;
     

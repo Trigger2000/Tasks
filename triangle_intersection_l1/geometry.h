@@ -32,6 +32,8 @@ template <typename T>
 struct triangle
 {
     point<T> array[3];
+
+    bool isbelong(const point<T>& p) const;
 };
 
 template <typename T>
@@ -70,9 +72,6 @@ public:
 
 template <typename T>
 Polygon<T> find_points(const triangle<T>& tr1, const triangle<T>& tr2);
-
-template <typename T>
-bool isbelong(const point<T>& p, const triangle<T>& tr);
 
 template <typename T>
 bool line_intersection(const line<T>& l1, const line<T>& l2, point<T>& p);
