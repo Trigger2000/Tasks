@@ -36,12 +36,11 @@ struct triangle
     int colour = GREEN;
 
     bool isbelong(const point<T>& p) const;
+    bool line_intersection(const line<T>& l);
+    bool triangle_intersection(const triangle<T>& tr);
 };
 
 template <typename T>
 std::istream& operator>>(std::istream& stream, triangle<T>& tr);
-
-template <typename T>
-bool line_triangle_intersection(const line<T>& l, const triangle<T>& tr, point<T>& p);
 
 #include "geometry.hpp"
