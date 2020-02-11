@@ -31,9 +31,10 @@ int main()
     {
         if (array[i].colour == RED)
         {
-            std::cout << i;
+            std::cout << i << ' ';
         }
     }
+    std::cout << '\n';
 
     return 0;
 }

@@ -58,7 +58,7 @@ bool triangle<T>:: line_intersection(const line<T>& l)
     float r = l.p2.x*dy - l.p2.y*dx, q = l.p2.x*dz - l.p2.z*dx;
 
     float det = dy*b*dx + dx*(dz*c + a*dx), detx = r*b*dx + dx*(q*c + d*dx);
-    float dety = dy*(q*c + d*dx) - r*(dz*c + a*dx), detz = dy*(-b*q) + dx*(dz*d - a*q) + r*dz*b;
+    float dety = dy*(q*c + d*dx) - r*(dz*c + a*dx), detz = (-1)*dy*b*q + dx*(dz*d - a*q) + r*dz*b;
 
     if (det != 0)
     {
@@ -70,7 +70,7 @@ bool triangle<T>:: line_intersection(const line<T>& l)
     }
     else
     {
-        double tmp = a*l.p1.x + b*l.p1.y + c*l.p1.z - d;
+        double tmp = a*l.p1.x + b*l.p1.y + c*l.p1.z + d;
         if (tmp == 0)
         {
             return true;
