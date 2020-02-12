@@ -24,20 +24,24 @@ template<typename T>
 bool operator==(const point<T>& rhs, const point<T>& p);
 
 template <typename T>
-struct line
+class line
 {
+public:
     point<T> p1, p2;
 };
 
 template <typename T>
-struct triangle
+class triangle
 {
-    point<T> array[3];
-    int colour = GREEN;
-
+public:
+    //triangle(const point<T>& p0, const point<T>& p1, const point<T> p2);
     bool isbelong(const point<T>& p) const;
     bool line_intersection(const line<T>& l);
     bool triangle_intersection(const triangle<T>& tr);
+
+    point<T> array[3];
+    //int a_ = 0, b_ = 0, c_ = 0, d_ = 0;
+    int colour = GREEN;
 };
 
 template <typename T>

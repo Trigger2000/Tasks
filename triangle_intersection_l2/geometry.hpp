@@ -21,6 +21,23 @@ bool operator==(const point<T>& lhs, const point<T>& rhs)
         return false;
 }
 
+/*template <typename T>
+triangle<T>:: triangle(const point<T>& p0, const point<T>& p1, const point<T> p2)
+{
+    array[0] = p0;
+    array[1] = p1;
+    array[2] = p2;
+
+    float dx1 = p1.x - p0.x, dy1 = p1.y - p0.y, dz1 = p1.z - p0.z;
+    float dx2 = p2.x - p0.x, dy2 = p2.y - p0.y, dz2 = p2.z - p0.z;
+    a_ = dy1*dz2 - dz1*dy2;
+    b_ = dz1*dx2 - dx1*dz2;
+    c_ = dx1*dy2 - dy1*dx2;
+    d_ = (-1)*(a_*p0.x + b_*p0.y + c_*p0.z);
+
+    std::cout << a_ << ' ' << b_ << ' ' << c_ << ' ' << d_ << '\n';
+} */
+
 template <typename T>
 bool triangle<T>:: isbelong(const point<T>& p) const
 {
@@ -55,7 +72,7 @@ bool triangle<T>:: line_intersection(const line<T>& l)
     float a = dy1*dz2 - dz1*dy2, b = dz1*dx2 - dx1*dz2, c = dx1*dy2 - dy1*dx2;
     float d = a*array[0].x + b*array[0].y + c*array[0].z;
 
-    float r = l.p2.x*dy - l.p2.y*dx, q = l.p2.x*dz - l.p2.z*dx;
+    float r = l.p1.x*dy - l.p1.y*dx, q = l.p1.x*dz - l.p1.z*dx;
 
     float det = dy*b*dx + dx*(dz*c + a*dx), detx = r*b*dx + dx*(q*c + d*dx);
     float dety = dy*(q*c + d*dx) - r*(dz*c + a*dx), detz = (-1)*dy*b*q + dx*(dz*d - a*q) + r*dz*b;
@@ -70,7 +87,7 @@ bool triangle<T>:: line_intersection(const line<T>& l)
     }
     else
     {
-        double tmp = a*l.p1.x + b*l.p1.y + c*l.p1.z + d;
+        float tmp = a*l.p1.x + b*l.p1.y + c*l.p1.z - d;
         if (tmp == 0)
         {
             return true;
