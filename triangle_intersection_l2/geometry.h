@@ -21,12 +21,11 @@ template<typename T>
 std::istream& operator>>(std::istream& stream, point<T>& p);
 
 template<typename T>
-bool operator==(const point<T>& rhs, const point<T>& p);
+std::ostream& operator<<(std::ostream& stream, point<T>& p);
 
 template <typename T>
-class line
+struct line
 {
-public:
     point<T> p1, p2;
 };
 
@@ -34,14 +33,15 @@ template <typename T>
 class triangle
 {
 public:
-    //triangle(const point<T>& p0, const point<T>& p1, const point<T> p2);
+    triangle(const point<T>& p0, const point<T>& p1, const point<T> p2);
     bool isbelong(const point<T>& p) const;
-    bool line_intersection(const line<T>& l);
-    bool triangle_intersection(const triangle<T>& tr);
-
-    point<T> array[3];
-    //int a_ = 0, b_ = 0, c_ = 0, d_ = 0;
+    bool line_intersection(const line<T>& l) const;
+    bool triangle_intersection(const triangle<T>& tr) const;
     int colour = GREEN;
+
+private:
+    point<T> array[3];
+    int a_ = 0, b_ = 0, c_ = 0, d_ = 0;
 };
 
 template <typename T>

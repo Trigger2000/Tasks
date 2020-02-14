@@ -4,39 +4,41 @@ int main()
 {
     int amount = 0;
     std::cin >> amount;
-    triangle<float>* array = static_cast<triangle<float>*>(calloc(amount, sizeof(triangle<float>)));
+    triangle<float>* triangles = static_cast<triangle<float>*>(calloc(amount, sizeof(triangle<float>)));
     for (int i = 0; i < amount; ++i)
     {
-        /*point<float> p0, p1, p2;
+        point<float> p0, p1, p2;
         std::cin >> p0 >> p1 >> p2;
         triangle<float> tr(p0, p1, p2);
-        array[i] = tr; */
-        std::cin >> array[i];
+        triangles[i] = tr;
     }
 
     for (int i = 0; i < amount; ++i)
     {
 
-        for (int j = 0; j < amount; ++j)
+        for (int j = i + 1; j < amount; ++j)
         {
-            if (i == j)
-                continue;
-
-            if (array[i].triangle_intersection(array[j]))
+            if (triangles[i].colour == RED && triangles[j].colour == RED)
             {
-                array[i].colour = RED;
-                array[j].colour = RED;
+                continue;
+            }
+
+            if (triangles[i].triangle_intersection(triangles[j]))
+            {
+                triangles[i].colour = RED;
+                triangles[j].colour = RED;
             }
         }
     }
 
     for (int i = 0; i < amount; ++i)
     {
-        if (array[i].colour == RED)
+        if (triangles[i].colour == RED)
         {
             std::cout << i << ' ';
         }
-    }
+    } 
+
     std::cout << '\n';
 
     return 0;
