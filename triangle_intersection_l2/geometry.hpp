@@ -19,8 +19,21 @@ std::ostream& operator<<(std::ostream& stream, point<T>& p)
     return stream;
 }
 
+template<typename T>
+bool operator==(const point<T>& p1, const point<T>& p2)
+{
+    if (p1.x == p2.x && p1.y == p2.y && p1.z == p2.z)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 template <typename T>
-triangle<T>:: triangle(const point<T>& p0, const point<T>& p1, const point<T> p2)
+triangle<T>:: triangle(const point<T>& p0, const point<T>& p1, const point<T>& p2)
 {
     array[0] = p0;
     array[1] = p1;
@@ -55,6 +68,7 @@ bool triangle<T>:: isbelong(const point<T>& p) const
     {
         return true;
     }
+    
     else
     {
         return false;
@@ -65,10 +79,17 @@ template <typename T>
 bool triangle<T>:: line_intersection(const line<T>& l) const
 {
     float dx = l.p2.x - l.p1.x, dy = l.p2.y - l.p1.y, dz = l.p2.z - l.p1.z;
-    float r = l.p1.x*dy - l.p1.y*dx, q = l.p1.x*dz - l.p1.z*dx;
 
-    float det = dy*b_*dx + dx*(dz*c_ + a_*dx), detx = r*b_*dx + dx*(q*c_ + d_*dx);
-    float dety = dy*(q*c_ + d_*dx) - r*(dz*c_ + a_*dx), detz = (-1)*dy*b_*q + dx*(dz*d_ - a_*q) + r*dz*b_;
+    if (dy != 0 || dx != 0)
+    {
+        float r = l.p1.x*dy - l.p1.y*dx, q = l.p1.x*dz - l.p1.z*dx;
+        float det = dy*b_*dx + dx*(dz*c_ + a_*dx), detx = r*b_*dx + dx*(q*c_ + d_*dx);
+        float dety = dy*(q*c_ + d_*dx) - r*(dz*c_ + a_*dx), detz = (-1)*dy*b_*q + dx*(dz*d_ - a_*q) + r*dz*b_;
+    }
+    else if (dz != 0 || )
+    {
+
+    }
 
     if (det != 0)
     {
@@ -93,6 +114,18 @@ bool triangle<T>:: line_intersection(const line<T>& l) const
 template <typename T>
 bool triangle<T>:: triangle_intersection(const triangle<T>& tr) const
 {
+    if (array[0] == array[1] || array[1] == array[2] || array[2] == array[0])
+    {
+        color = colour::blue;
+        return false;    
+    }
+
+    if (tr.array[0] == tr.array[1] || tr.array[1] == tr.array[2] || tr.array[2] == tr.array[0])
+    {
+        tr.color = colour::blue;
+        return false;
+    }
+
     if (this->line_intersection({tr.array[0], tr.array[1]}) ||
         this->line_intersection({tr.array[1], tr.array[2]}) ||
         this->line_intersection({tr.array[2], tr.array[0]}))

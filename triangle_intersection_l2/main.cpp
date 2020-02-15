@@ -4,7 +4,8 @@ int main()
 {
     int amount = 0;
     std::cin >> amount;
-    triangle<float>* triangles = static_cast<triangle<float>*>(calloc(amount, sizeof(triangle<float>)));
+    std::vector<triangle<float>> triangles;
+    triangles.reserve(amount);
     for (int i = 0; i < amount; ++i)
     {
         point<float> p0, p1, p2;
@@ -18,22 +19,23 @@ int main()
 
         for (int j = i + 1; j < amount; ++j)
         {
-            if (triangles[i].colour == RED && triangles[j].colour == RED)
+            if ((triangles[i].color == colour::red && triangles[j].color == colour::red) ||
+                triangles[i].color == colour::blue || triangles[j].color == colour::blue)
             {
                 continue;
             }
 
             if (triangles[i].triangle_intersection(triangles[j]))
             {
-                triangles[i].colour = RED;
-                triangles[j].colour = RED;
+                triangles[i].color = colour::red;
+                triangles[j].color = colour::red;
             }
         }
     }
 
     for (int i = 0; i < amount; ++i)
     {
-        if (triangles[i].colour == RED)
+        if (triangles[i].color == colour::red)
         {
             std::cout << i << ' ';
         }
