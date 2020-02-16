@@ -25,7 +25,7 @@ int main()
                 continue;
             }
 
-            if (triangles[i].triangle_intersection(triangles[j]))
+            if (triangles[i].triangles_intersection(triangles[j]))
             {
                 triangles[i].color = colour::red;
                 triangles[j].color = colour::red;

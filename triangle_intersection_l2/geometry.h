@@ -30,6 +30,7 @@ template <typename T>
 struct line
 {
     point<T> p1, p2;
+    bool line_intersection_plane(const line<T>& l) const;
 };
 
 template <typename T>
@@ -38,8 +39,8 @@ class triangle final
 public:
     triangle(const point<T>& p0, const point<T>& p1, const point<T>& p2);
     bool isbelong(const point<T>& p) const;
-    bool line_intersection(const line<T>& l) const;
-    bool triangle_intersection(const triangle<T>& tr) const;
+    bool triangle_line_intersection(const line<T>& l) const;
+    bool triangles_intersection(const triangle<T>& tr) const;
     colour color = colour::green;
 
 private:

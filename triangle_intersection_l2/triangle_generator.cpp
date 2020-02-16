@@ -25,7 +25,7 @@ void generate(int until, int& counter, int limit, std::ofstream& out)
         float l1 = std::sqrt(dx1*dx1 + dy1*dy1 + dy1*dy1);
         float l2 = std::sqrt(dx2*dx2 + dy2*dy2 + dy2*dy2);
         float l3 = std::sqrt(dx3*dx3 + dy3*dy3 + dy3*dy3);
-        if (l1 <= l2 + l3 && l2 <= l1 + l3 && l3 <= l1 + l2)
+        if (l1 < l2 + l3 && l2 < l1 + l3 && l3 < l1 + l2)
         {
             out << p1 << ' ' << p2 << ' ' << p3 << '\n';
             counter++;
