@@ -3,6 +3,12 @@
     #include <stdio.h>
     #include <stdlib.h>
     #define YYSTYPE double
+
+    int yylex();
+    void yyerror(char *s) 
+    {
+        fprintf (stderr, "%s\n", s);
+    }
 %}
 
 %token NUMBER
@@ -29,20 +35,4 @@ expr : expr '+' expr { $$ = $1 + $3; }
 
 %%
 
-yylex()
-{
-    int c = getchar();
-    while(c == ' ')
-    {
-        c = getchar();
-    } 
-
-    if (isdigit(c) || c == '.')
-    {
-        ungetc(c, stdin);
-        scanf("%lf", &yylval);
-        return NUMBER;
-    }
-
-    return c;
-}
+#include "lex.yy.c"

@@ -4,12 +4,13 @@ TARGET = a.out
 
 all: $(TARGET)
 
-$(TARGET): y.tab.c
-	gcc y.tab.c -ly
+$(TARGET): yacc.tab.c
+	gcc yacc.tab.c -ly -ll
 
-y.tab.c: translate.y
-	yacc translate.y
+yacc.tab.c: yacc.c
+	flex lex.l
+	bison yacc.y
 
 clean:
-	rm -rf y.tab.c a.out
+	rm -rf yacc.tab.c a.out lex.yy.c
 

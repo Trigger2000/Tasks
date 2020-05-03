@@ -62,14 +62,20 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "translate.y" /* yacc.c:339  */
+#line 1 "yacc.y" /* yacc.c:339  */
 
     #include <ctype.h>
     #include <stdio.h>
     #include <stdlib.h>
     #define YYSTYPE double
 
-#line 73 "y.tab.c" /* yacc.c:339  */
+    int yylex();
+    void yyerror(char *s) 
+    {
+        fprintf (stderr, "%s\n", s);
+    }
+
+#line 79 "yacc.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -105,9 +111,6 @@ extern int yydebug;
     UMINUS = 259
   };
 #endif
-/* Tokens.  */
-#define NUMBER 258
-#define UMINUS 259
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -125,7 +128,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 129 "y.tab.c" /* yacc.c:358  */
+#line 132 "yacc.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -422,8 +425,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    16,    16,    17,    18,    21,    22,    23,    24,    25,
-      26,    27
+       0,    22,    22,    23,    24,    27,    28,    29,    30,    31,
+      32,    33
 };
 #endif
 
@@ -1201,49 +1204,49 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 16 "translate.y" /* yacc.c:1646  */
+#line 22 "yacc.y" /* yacc.c:1646  */
     { printf("%g\n", (yyvsp[-1])); }
-#line 1207 "y.tab.c" /* yacc.c:1646  */
+#line 1210 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 21 "translate.y" /* yacc.c:1646  */
+#line 27 "yacc.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-2]) + (yyvsp[0]); }
-#line 1213 "y.tab.c" /* yacc.c:1646  */
+#line 1216 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 22 "translate.y" /* yacc.c:1646  */
+#line 28 "yacc.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-2]) - (yyvsp[0]); }
-#line 1219 "y.tab.c" /* yacc.c:1646  */
+#line 1222 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 23 "translate.y" /* yacc.c:1646  */
+#line 29 "yacc.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-2]) * (yyvsp[0]); }
-#line 1225 "y.tab.c" /* yacc.c:1646  */
+#line 1228 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 24 "translate.y" /* yacc.c:1646  */
+#line 30 "yacc.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-2]) / (yyvsp[0]); }
-#line 1231 "y.tab.c" /* yacc.c:1646  */
+#line 1234 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 25 "translate.y" /* yacc.c:1646  */
+#line 31 "yacc.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-1]); }
-#line 1237 "y.tab.c" /* yacc.c:1646  */
+#line 1240 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 26 "translate.y" /* yacc.c:1646  */
+#line 32 "yacc.y" /* yacc.c:1646  */
     { (yyval) = - (yyvsp[0]); }
-#line 1243 "y.tab.c" /* yacc.c:1646  */
+#line 1246 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1247 "y.tab.c" /* yacc.c:1646  */
+#line 1250 "yacc.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1471,23 +1474,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 30 "translate.y" /* yacc.c:1906  */
+#line 36 "yacc.y" /* yacc.c:1906  */
 
 
-yylex()
-{
-    int c = getchar();
-    while(c == ' ')
-    {
-        c = getchar();
-    } 
-
-    if (isdigit(c) || c == '.')
-    {
-        ungetc(c, stdin);
-        scanf("%lf", &yylval);
-        return NUMBER;
-    }
-
-    return c;
-}
+#include "lex.yy.c"
