@@ -1,24 +1,30 @@
 %{
     #include <ctype.h>
     #include <stdio.h>
+    #include <stdlib.h>
+    #define YYSTYPE double
 %}
 
-%token DIGIT
+%token NUMBER
+
+%left '+' '-'
+%left '*' '/'
+%right UMINUS
 
 %%
 
-line : expr '\n' { printf("%d\n", $1); }
-    ;
-expr : expr '+' term { $$ = $1 + $3; }
-    | term
-    ;
-
-term : term '*' factor { $$ = $1 * $3; }
-    | factor
+lines : lines expr '\n' { printf("%g\n", $2); }
+    | lines '\n'
+    |
     ;
 
-factor : '(' expr ')' { $$ = $2; }
-    | DIGIT
+expr : expr '+' expr { $$ = $1 + $3; }
+    | expr '-' expr { $$ = $1 - $3; }
+    | expr '*' expr { $$ = $1 * $3; }
+    | expr '/' expr { $$ = $1 / $3; }
+    | '(' expr ')' { $$ = $2; }
+    | '-' expr %prec UMINUS { $$ = - $2; }
+    | NUMBER
     ;
 
 %%
@@ -26,10 +32,16 @@ factor : '(' expr ')' { $$ = $2; }
 yylex()
 {
     int c = getchar();
-    if (isdigit(c))
+    while(c == ' ')
     {
-        yylval = c - '0';
-        return DIGIT;
+        c = getchar();
+    } 
+
+    if (isdigit(c) || c == '.')
+    {
+        ungetc(c, stdin);
+        scanf("%lf", &yylval);
+        return NUMBER;
     }
 
     return c;
