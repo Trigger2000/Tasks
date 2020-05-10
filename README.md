@@ -1,1 +1,1 @@
-Tasks from intel C++ seminars
+Different problems
