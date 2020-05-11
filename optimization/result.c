@@ -10,7 +10,10 @@ int main()
 	int i;
 	int r = 0;
 	for (i = 0; i < N; i++)
+	{
 		r += foo(5, -7);
+	}
+	
   	printf("%d\n",r);
   	return 0;
 }
